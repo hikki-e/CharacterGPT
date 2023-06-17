@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="charactergpt-prompts",
-    version="0.0.13",
+    version="0.0.15",
     author="Hikki-e",
     author_email="zmk383@gmail.com",
     description="This library is designed to make the creation of characters for roll-play in ChatGPT much easier",
@@ -21,4 +21,5 @@ setuptools.setup(
 package_data={
         'charactergpt_prompts': ['additional_data/*', "jailbreaks/*", "ready_to_use_prompts/*"],
     },
+include_package_data=True
 )

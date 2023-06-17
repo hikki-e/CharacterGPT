@@ -1,4 +1,4 @@
-from additional_data.character_gpt_errors import *
+from .additional_data.character_gpt_errors import *
 from typing import Union
 import json
 import warnings
