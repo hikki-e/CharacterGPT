@@ -1,7 +1,0 @@
-LICENSE
-README.md
-setup.py
-charactergpt_prompts.egg-info/PKG-INFO
-charactergpt_prompts.egg-info/SOURCES.txt
-charactergpt_prompts.egg-info/dependency_links.txt
-charactergpt_prompts.egg-info/top_level.txt
