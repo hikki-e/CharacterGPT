@@ -1,5 +1,4 @@
 from .additional_data.character_gpt_errors import *
-from typing import Union
 import json
 import warnings
 import os
@@ -52,7 +51,7 @@ class GptPrompt:
 
     def generate_prompt(self):
         tokens_limits=self._get_tokens_limitations()
-        response=f"{self.jailbreak_text}{tokens_limits}{self.get_debug_mode_message()}\n"
+        response=f"{self.jailbreak_text}{tokens_limits}{self._get_debug_mode_message()}\n"
         if self.user_name:
             response+=f"User name for current story: {self.user_name}\n"
         else:
@@ -62,7 +61,10 @@ class GptPrompt:
         else:
             warnings.warn("You didn't provide character description")
         if self.initial_message:
-            response+=f"This is your initial message that you need to start story from: (\"{self._initial_message}\")\n"
+            initial_message=self._initial_message
+            if self.user_name:
+                initial_message=initial_message.replace("{{user}}", self.user_name)
+            response+=f"This is your initial message that you need to start story from: (\"{initial_message}\")\n"
         else:
             warnings.warn("You didn't provide story initial message")
         if self.story_start_context:
@@ -73,7 +75,7 @@ class GptPrompt:
         response+=self._prompt_end
         return response
 
-    def get_debug_mode_message(self):
+    def _get_debug_mode_message(self):
         if not self._debug_mode:
             return ""
         with open(os.path.join(current_dir,"additional_data/debug_mode_prompt"), "r") as f:
@@ -108,16 +110,13 @@ class GptPrompt:
             warnings.warn("You didn't provide \"Character information\" field in character description")
         return response
 
-    def add_description_parameter(self, key:str, value:Union[str, dict]):
-        self.character_description[key]=value
-
     def add_description_parameters(self, parameters:dict):
         self.character_description.update(parameters)
 
     @staticmethod
     def import_existing_prompt(prompt_name: str=None, filename: str=None):
         if prompt_name:
-            with open(os.path.join(current_dir,f"ready_to_use_prompts/{prompt_name}"), "r", encoding="utf-8") as f:
+            with open(os.path.join(current_dir,f"character_examples/{prompt_name}"), "r", encoding="utf-8") as f:
                 prompt_data=json.loads(f.read())
         elif filename:
             with open(filename, "r", encoding="utf-8") as f:

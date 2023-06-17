@@ -19,7 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 package_data={
-        'charactergpt_prompts': ['additional_data/*', "jailbreaks/*", "ready_to_use_prompts/*"],
+        'charactergpt_prompts': ['additional_data/*', "jailbreaks/*", "character_examples/*"],
     },
 include_package_data=True
 )
