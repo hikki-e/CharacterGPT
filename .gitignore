@@ -3,4 +3,5 @@
 venv
 .pypirc
 dist
+charactergpt_prompts.egg-info
 
